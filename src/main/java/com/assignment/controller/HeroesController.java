@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.assignment.entity.Heroe;
 import com.assignment.services.HeroesService;
+import com.assignment.utils.TrackExecutionTime;
 
 @RestController
 public class HeroesController {
@@ -70,6 +71,7 @@ public class HeroesController {
 	}
 	
 	@GetMapping("/heroes/all")
+	@TrackExecutionTime
 	public Iterable<Heroe> getHeroe() {
 		return heroesService.findAll();
 	}
