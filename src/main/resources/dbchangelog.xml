@@ -1,0 +1,42 @@
+
+<databaseChangeLog  
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">  
+
+    <changeSet  id="1"  author="adelso">  
+        <createTable  tableName="HEROE">  
+            <column  name="ID"  type="int">  
+                <constraints  primaryKey="true"  nullable="false"/>  
+            </column>  
+            <column  name="FIRST_NAME"  type="varchar(50)">  
+                <constraints  nullable="false"/>  
+            </column>
+            <column  name="LAST_NAME"  type="varchar(50)">  
+                <constraints  nullable="false"/>  
+            </column>    
+            <column  name="NICK_NAME"  type="varchar(50)">  
+                <constraints  nullable="false"/>  
+            </column>  
+		</createTable>  
+   </changeSet>  
+   
+   <changeSet id="2" author="adelso" >
+    
+    <insert tableName="HEROE">
+    	<column name="ID" value="1"/>
+        <column name="FIRST_NAME" value="Clack"/>
+        <column name="LAST_NAME" value="Kent"/>
+        <column name="NICK_NAME" value="Superman"/>
+    </insert>
+    
+    <insert tableName="HEROE">
+    	<column name="ID" value="2"/>
+        <column name="FIRST_NAME" value="Peter"/>
+        <column name="LAST_NAME" value="Parcker"/>
+        <column name="NICK_NAME" value="Spiderman"/>
+    </insert>
+    
+</changeSet>
+</databaseChangeLog>
