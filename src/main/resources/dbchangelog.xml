@@ -38,5 +38,12 @@
         <column name="NICK_NAME" value="Spiderman"/>
     </insert>
     
+    <insert tableName="HEROE">
+    	<column name="ID" value="3"/>
+        <column name="FIRST_NAME" value="Charles"/>
+        <column name="LAST_NAME" value="Xavier"/>
+        <column name="NICK_NAME" value="Profesor X"/>
+    </insert>
+    
 </changeSet>
 </databaseChangeLog>

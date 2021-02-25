@@ -37,7 +37,7 @@ public class HeroesController {
 	}
 	
 	@PostMapping("/heroes")
-	public ResponseEntity<Object> getHeroe(@RequestBody Heroe heroe) {
+	public ResponseEntity<Object> createHeroe(@RequestBody Heroe heroe) {
 		Heroe savedHeroe = heroesService.save(heroe);
 		System.out.println("SavedId"+savedHeroe.getId());
 
@@ -48,7 +48,7 @@ public class HeroesController {
 	}
 	
 	@PutMapping("/heroes/{id}")
-	public ResponseEntity<Object> putHeroe(@PathVariable(name="id") Long id,@RequestBody Heroe heroe) {
+	public ResponseEntity<Object> updateHeroe(@PathVariable(name="id") Long id,@RequestBody Heroe heroe) {
 		Optional<Heroe> heroeOptional = heroesService.getHeroeById(id);
 
 		if (heroeOptional.isEmpty())
@@ -66,13 +66,13 @@ public class HeroesController {
 	}
 	
 	@GetMapping("/heroes")
-	public List<Heroe> getHeroe(@RequestParam String lastName) {
+	public List<Heroe> getHeroeByLastNameLike(@RequestParam String lastName) {
 		return heroesService.findByLastNameLike("%" + lastName + "%");
 	}
 	
 	@GetMapping("/heroes/all")
 	@TrackExecutionTime
-	public Iterable<Heroe> getHeroe() {
+	public Iterable<Heroe> getAllHeroe() {
 		return heroesService.findAll();
 	}
 
