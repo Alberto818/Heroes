@@ -7,7 +7,7 @@ import com.assignment.entity.Heroe;
 
 public interface HeroesRepository extends CrudRepository<Heroe,Long> {
 
-	List<Heroe> findByLastNameLike(String lastName);
+	List<Heroe> findByNickNameLike(String nickName);
 	Iterable<Heroe> findAll();
 	
 }

@@ -1,4 +1,4 @@
-package com.example.assignment.services;
+package com.assignment.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,15 +45,15 @@ class HeroesServicesTest {
 	}
 
 	@Test
-	void testFindByLastNameLike() {
-		String subStringToSearch = "lastName";
-		when(this.heroesRepository.findByLastNameLike(subStringToSearch)).thenReturn(List.of(expectedHeroe1,expectedHeroe2));
+	void testFindByNickNameLike() {
+		String subStringToSearch = "man";
+		when(this.heroesRepository.findByNickNameLike(subStringToSearch)).thenReturn(List.of(expectedHeroe1,expectedHeroe2));
 		
-		List<Heroe> actualHeroeList = this.heroesService.findByLastNameLike(subStringToSearch);
+		List<Heroe> actualHeroeList = this.heroesService.findByNickNameLike(subStringToSearch);
 		
 		assertEquals(expectedHeroe1,actualHeroeList.get(0));
 		assertEquals(expectedHeroe2,actualHeroeList.get(1));
-		verify(this.heroesRepository,times(1)).findByLastNameLike(subStringToSearch);
+		verify(this.heroesRepository,times(1)).findByNickNameLike(subStringToSearch);
 	}
 
 	@Test
@@ -79,15 +79,14 @@ class HeroesServicesTest {
 	}
 
 	@Test
-	void testFindAll() {
-		String subStringToSearch = "lastName";
-		when(this.heroesRepository.findByLastNameLike(subStringToSearch)).thenReturn(List.of(expectedHeroe1,expectedHeroe2));
+	void testFindAll() {		
+		when(this.heroesRepository.findAll()).thenReturn(List.of(expectedHeroe1,expectedHeroe2));
 		
-		List<Heroe> actualHeroeList = this.heroesService.findByLastNameLike(subStringToSearch);
+		List<Heroe> actualHeroeList = (List<Heroe>) this.heroesService.findAll();
 		
 		assertEquals(expectedHeroe1,actualHeroeList.get(0));
 		assertEquals(expectedHeroe2,actualHeroeList.get(1));
-		verify(this.heroesRepository,times(1)).findByLastNameLike(subStringToSearch);
+		verify(this.heroesRepository,times(1)).findAll();
 	}
 
 }

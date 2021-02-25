@@ -29,8 +29,8 @@ public class HeroesService {
 		return out;
 	}
 	
-	public List<Heroe> findByLastNameLike(String subString){
-		return heroesRepository.findByLastNameLike(subString);
+	public List<Heroe> findByNickNameLike(String subString){
+		return heroesRepository.findByNickNameLike(subString);
 	}
 	
 	@CacheEvict(value = "heroes", key = "#id")

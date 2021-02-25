@@ -39,8 +39,7 @@ public class HeroesController {
 	@PostMapping("/heroes")
 	public ResponseEntity<Object> createHeroe(@RequestBody Heroe heroe) {
 		Heroe savedHeroe = heroesService.save(heroe);
-		System.out.println("SavedId"+savedHeroe.getId());
-
+		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(savedHeroe.getId()).toUri();
 
@@ -66,8 +65,8 @@ public class HeroesController {
 	}
 	
 	@GetMapping("/heroes")
-	public List<Heroe> getHeroeByLastNameLike(@RequestParam String lastName) {
-		return heroesService.findByLastNameLike("%" + lastName + "%");
+	public List<Heroe> getHeroeByNickNameLike(@RequestParam String nickNameSubString) {
+		return heroesService.findByNickNameLike("%" + nickNameSubString + "%");
 	}
 	
 	@GetMapping("/heroes/all")
