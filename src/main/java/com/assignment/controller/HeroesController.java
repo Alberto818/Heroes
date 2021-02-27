@@ -4,39 +4,34 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.assignment.entity.Heroe;
 import com.assignment.services.HeroesService;
 import com.assignment.utils.TrackExecutionTime;
 
-@RestController
-public class HeroesController {
 
-	HeroesService  heroesService;
+@RestController
+public class HeroesController implements IHeroesController{
+
+	private HeroesService  heroesService;
 	
 	public HeroesController(@Autowired HeroesService heroesServices) {
 		this.heroesService = heroesServices;		
 	}
 	
+
+	@Override
+	public ResponseEntity<Optional<Heroe>> getHeroe(@PathVariable(name="id") Long id) {
+		return ResponseEntity.ok(heroesService.getHeroeById(id));
+	} 
 	
-	@GetMapping("/heroes/{id}")
-	public Optional<Heroe> getHeroe(@PathVariable(name="id") Long id) {
-		return heroesService.getHeroeById(id);
-	}
-	
-	@PostMapping("/heroes")
+	@Override
 	public ResponseEntity<Object> createHeroe(@RequestBody Heroe heroe) {
 		Heroe savedHeroe = heroesService.save(heroe);
 		
@@ -46,7 +41,7 @@ public class HeroesController {
 		return ResponseEntity.created(location).build();
 	}
 	
-	@PutMapping("/heroes/{id}")
+	@Override
 	public ResponseEntity<Object> updateHeroe(@PathVariable(name="id") Long id,@RequestBody Heroe heroe) {
 		Optional<Heroe> heroeOptional = heroesService.getHeroeById(id);
 
@@ -59,20 +54,20 @@ public class HeroesController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@DeleteMapping("/heroes/{id}")
+	@Override
 	public void deleteHeroe(@PathVariable(name="id") Long id) {
 		heroesService.delete(id);
 	}
 	
-	@GetMapping("/heroes")
-	public List<Heroe> getHeroeByNickNameLike(@RequestParam String nickNameSubString) {
-		return heroesService.findByNickNameLike("%" + nickNameSubString + "%");
+	@Override
+	public ResponseEntity<List<Heroe>> getHeroeByNickNameLike(@RequestParam String nickNameSubString) {
+		return ResponseEntity.ok(heroesService.findByNickNameLike("%" + nickNameSubString + "%"));
 	}
 	
-	@GetMapping("/heroes/all")
+	@Override
 	@TrackExecutionTime
-	public Iterable<Heroe> getAllHeroe() {
-		return heroesService.findAll();
+	public ResponseEntity<Iterable<Heroe>> getAllHeroe() {
+		return ResponseEntity.ok(heroesService.findAll());
 	}
 
 }
