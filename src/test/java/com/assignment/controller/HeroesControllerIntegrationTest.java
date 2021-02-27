@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,7 +20,7 @@ import com.assignment.App;
 import com.assignment.entity.Heroe;
 
 @SpringBootTest(classes = App.class,webEnvironment = WebEnvironment.RANDOM_PORT)
-class HeroesControllerTest {
+class HeroesControllerIntegrationTest {
 	
 	@Autowired 
 	RestTemplate restTemplate;
@@ -126,5 +127,26 @@ class HeroesControllerTest {
 	
         }
    	}
+	
+	/**
+	 * Check security is set over /heroes/all
+	 */
+	@Test
+	void testGetAllHeroeWithUnauthorizedResult() {
+		
+		
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Heroe> entity = new HttpEntity<Heroe>(null, headers);
+		try {
+        restTemplate.exchange(getRootUrl() + "/heroes/all",
+        HttpMethod.GET, entity, Heroe.class);
+		}catch(HttpClientErrorException.Unauthorized exception) {
+	        HttpStatus status = exception.getStatusCode();
+	        
+	        assertNotNull(status);
+	        assertEquals(HttpStatus.UNAUTHORIZED,status);        
+		}
+        
+	}
 
 }
